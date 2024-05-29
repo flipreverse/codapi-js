@@ -53,7 +53,7 @@ class Executor {
         const placeholder = "##CODE##";
         const [_, template] = await readFile(this.template, encodeText);
         // determines indentation of the placeholder
-        const match = template.matchAll(new RegExp("^(\\s+)" + placeholder, "gm")).toArray();
+        const match = [...template.matchAll(new RegExp("^(\\s+)" + placeholder, "gm"))];
         const indent = match[0] && match[0][1] ? match[0][1] : "";
         // applies indentation to all code lines
         code = code
