@@ -28,7 +28,14 @@ template.innerHTML = `
 const builders = {
     // returns the result as a text node.
     [OutputMode.text]: (result, shouldTail) => {
-        const value = result.stdout || result.stderr;
+        let value = "";
+		if (result.stderr.length > 0) {
+			value = result.stderr;
+		}
+		if (result.stdout.length > 0) {
+			value += (value.length > 0 ? "\n" : "") + result.stdout;
+		}
+		result.stdout || result.stderr;
         const output = shouldTail ? text.tail(value) : value;
         return document.createTextNode(output || PLACEHOLDER);
     },
